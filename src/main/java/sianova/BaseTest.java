@@ -56,6 +56,13 @@ public void swipeGesture (WebElement element, String direction) {
             "direction", direction,
             "percent", 0.25));
     }
+    public void dragAndDropGesture (WebElement firstElement, WebElement secondElement) {
+        driver.executeScript("mobile: dragGesture", ImmutableMap.of(
+                "elementId", ((RemoteWebElement) firstElement).getId(),
+                "endX", secondElement.getLocation().x,
+                "endY", secondElement.getLocation().y
+        ));
+    }
 
     @AfterClass
     public void tearDown() {

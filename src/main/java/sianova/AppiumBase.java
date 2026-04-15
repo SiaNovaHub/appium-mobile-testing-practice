@@ -40,7 +40,7 @@ public class AppiumBase extends BaseTest {
         //scrollIntoView("WebView");
     }
     @Test
-    public void SwipeValidation() throws InterruptedException {
+    public void SwipeValidation() {
         driver.findElement(new AppiumBy.ByAndroidUIAutomator("text(\"Views\")")).click();
         driver.findElement(new AppiumBy.ByAndroidUIAutomator("text(\"Gallery\")")).click();
         driver.findElement(new AppiumBy.ByAndroidUIAutomator("text(\"1. Photos\")")).click();
@@ -51,5 +51,18 @@ public class AppiumBase extends BaseTest {
         swipeGesture(firstImage, "left");
         isFocusable = firstImage.getAttribute("focusable");
         Assert.assertEquals(isFocusable, "false");
+    }
+    @Test
+    public void DragDropValidation() throws InterruptedException {
+        driver.findElement(new AppiumBy.ByAndroidUIAutomator("text(\"Views\")")).click();
+        driver.findElement(new AppiumBy.ByAndroidUIAutomator("text(\"Drag and Drop\")")).click();
+
+        WebElement firstElement = driver.findElement(By.id("io.appium.android.apis:id/drag_dot_1"));
+        WebElement secondElement = driver.findElement(By.id("io.appium.android.apis:id/drag_dot_2"));
+
+        dragAndDropGesture(firstElement,secondElement);
+        WebElement resultElement = driver.findElement(By.id("io.appium.android.apis:id/drag_result_text"));
+        Assert.assertTrue(resultElement.isDisplayed());
+        Assert.assertEquals(resultElement.getText(), "Dropped!");
     }
 }
