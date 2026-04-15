@@ -1,7 +1,6 @@
 package sianova;
 
 import com.google.common.collect.ImmutableMap;
-import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
@@ -17,7 +16,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.Duration;
 
-public class BaseTest {
+public class BaseMethods {
 
     public AndroidDriver driver;
     public AppiumDriverLocalService service;
