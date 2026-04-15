@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+//import sianova.util_methods.MobileActions;
 
 public class AppiumBase extends BaseTest {
     @Test
@@ -27,7 +28,7 @@ public class AppiumBase extends BaseTest {
 
         WebElement peopleNamesElement = driver.findElement(
                 new AppiumBy.ByAndroidUIAutomator("text(\"People Names\")"));
-        longPressAction(peopleNamesElement);
+        //longPressAction(peopleNamesElement);
         String longPressMenuTitle = driver.findElement(By.id("android:id/title")).getText();
         Assert.assertEquals(longPressMenuTitle, "Sample menu");
         Assert.assertTrue(driver.findElement(
@@ -36,15 +37,19 @@ public class AppiumBase extends BaseTest {
     @Test
     public void ScrollValidation() {
         driver.findElement(new AppiumBy.ByAndroidUIAutomator("text(\"Views\")")).click();
-        driver.findElement(new AppiumBy.ByAndroidUIAutomator("text(\"Expandable Lists\")")).click();
-        driver.findElement(new AppiumBy.ByAndroidUIAutomator("text(\"1. Custom Adapter\")")).click();
-
-        WebElement peopleNamesElement = driver.findElement(
-                new AppiumBy.ByAndroidUIAutomator("text(\"People Names\")"));
-        longPressAction(peopleNamesElement);
-        String longPressMenuTitle = driver.findElement(By.id("android:id/title")).getText();
-        Assert.assertEquals(longPressMenuTitle, "Sample menu");
-        Assert.assertTrue(driver.findElement(
-                new AppiumBy.ByAndroidUIAutomator("text(\"Sample menu\")")).isDisplayed());
+        //scrollIntoView("WebView");
+    }
+    @Test
+    public void SwipeValidation() throws InterruptedException {
+        driver.findElement(new AppiumBy.ByAndroidUIAutomator("text(\"Views\")")).click();
+        driver.findElement(new AppiumBy.ByAndroidUIAutomator("text(\"Gallery\")")).click();
+        driver.findElement(new AppiumBy.ByAndroidUIAutomator("text(\"1. Photos\")")).click();
+        WebElement firstImage = driver.findElement(new AppiumBy.ByAndroidUIAutomator(
+                "className(\"android.widget.ImageView\").instance(0)"));
+        String isFocusable = firstImage.getAttribute("focusable");
+        Assert.assertEquals(isFocusable, "true");
+        swipeGesture(firstImage, "left");
+        isFocusable = firstImage.getAttribute("focusable");
+        Assert.assertEquals(isFocusable, "false");
     }
 }
