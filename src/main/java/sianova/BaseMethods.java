@@ -1,6 +1,7 @@
 package sianova;
 
 import com.google.common.collect.ImmutableMap;
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
@@ -34,7 +35,8 @@ public class BaseMethods {
 
         UiAutomator2Options options = new UiAutomator2Options();
         options.setDeviceName("HUAWEI ANA-NX9");
-        options.setApp("E:\\AppiumTestProjectIntelliJ\\src\\main\\java\\resources\\ApiDemos-debug.apk");
+        //options.setApp("E:\\AppiumTestProjectIntelliJ\\src\\main\\java\\resources\\ApiDemos-debug.apk");
+        options.setApp("E:\\AppiumTestProjectIntelliJ\\src\\main\\java\\resources\\General-Store.apk");
 
         driver = new AndroidDriver(new URI("http://127.0.0.1:4723").toURL(), options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -45,10 +47,10 @@ public class BaseMethods {
 //                ImmutableMap.of("elementId", ((RemoteWebElement) element).getId(),
 //                        "duration", 2000));
 //    }
-//    public void scrollIntoView(String elementText) {
-//        driver.findElement(AppiumBy.androidUIAutomator(
-//                "new UiScrollable(new UiSelector()).scrollIntoView(text(\"" + elementText + "\"))"));
-//    }
+    public void scrollIntoView(String elementText) {
+        driver.findElement(AppiumBy.androidUIAutomator(
+                "new UiScrollable(new UiSelector()).scrollIntoView(text(\"" + elementText + "\"))"));
+    }
 public void swipeGesture (WebElement element, String direction) {
     driver.executeScript("mobile: swipeGesture", ImmutableMap.of(
             "elementId", ((RemoteWebElement) element).getId(),
