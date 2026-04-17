@@ -6,8 +6,10 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
@@ -42,11 +44,11 @@ public class BaseMethods {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
-//    public void longPressAction(WebElement element) {
-//        driver.executeScript("mobile: longClickGesture",
-//                ImmutableMap.of("elementId", ((RemoteWebElement) element).getId(),
-//                        "duration", 2000));
-//    }
+    public void longPressAction(WebElement element) {
+        driver.executeScript("mobile: longClickGesture",
+                ImmutableMap.of("elementId", ((RemoteWebElement) element).getId(),
+                        "duration", 2000));
+    }
     public void scrollIntoView(String elementText) {
         driver.findElement(AppiumBy.androidUIAutomator(
                 "new UiScrollable(new UiSelector()).scrollIntoView(text(\"" + elementText + "\"))"));
@@ -63,6 +65,24 @@ public void swipeGesture (WebElement element, String direction) {
                 "endX", secondElement.getLocation().x,
                 "endY", secondElement.getLocation().y
         ));
+    }
+    public void addProductToCart (String productName) {
+        scrollIntoView(productName);
+        WebElement productCard = driver.findElement(By.xpath(
+                "//android.widget.TextView[@text = '" + productName + "']//parent::android.widget.LinearLayout"));
+        WebElement productAddToCartBtn = productCard.findElement(By.xpath(
+                "//android.widget.TextView[@resource-id = 'com.androidsample.generalstore:id/productAddCart']"));
+        productAddToCartBtn.click();
+    }
+    public void verifyAddToCartBtnChanged (String productName) {
+        WebElement productCard = driver.findElement(By.xpath(
+                "//android.widget.TextView[@text = '" + productName + "']//parent::android.widget.LinearLayout"));
+        WebElement productAddToCartBtn = productCard.findElement(By.xpath(
+                "//android.widget.TextView[@resource-id = 'com.androidsample.generalstore:id/productAddCart']"));
+        Assert.assertEquals(productAddToCartBtn.getText(), "ADDED TO CART");
+    }
+    public void navigateToCart () {
+        driver.findElement(By.id("com.androidsample.generalstore:id/appbar_btn_cart")).click();
     }
 
     @AfterClass
