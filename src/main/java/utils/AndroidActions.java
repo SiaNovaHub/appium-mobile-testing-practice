@@ -12,7 +12,7 @@ public class AndroidActions {
         this.driver = driver;
     }
 
-    public void longPressAction(WebElement element) {
+    public static void longPressAction(WebElement element) {
         driver.executeScript("mobile: longClickGesture",
                 ImmutableMap.of("elementId", ((RemoteWebElement) element).getId(),
                         "duration", 2000));

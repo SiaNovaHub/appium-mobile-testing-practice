@@ -3,7 +3,6 @@ package ecomm_app_e2e;
 import enums.Gender;
 import org.testng.annotations.Test;
 import pages.android.StartFormPage;
-import sianova.BaseMethods;
 
 public class eCommApp_StartForm extends BaseMethods {
     @Test

@@ -52,6 +52,7 @@ public class StartFormPage extends AndroidActions {
         driver.findElement(new AppiumBy.ByAndroidUIAutomator("text(\"" + country + "\")")).click();
     }
     public void clickShopBtn() {
+
         shopBtn.click();
     }
     public void validateToastText(String expectedText) {
